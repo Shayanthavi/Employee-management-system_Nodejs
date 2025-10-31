@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Card, Form, Button, Table, Spinner, Alert } from "react-bootstrap";
-import { BsPeople, BsCalendar3, BsFileText, BsSearch, BsChevronLeft, BsChevronRight, BsDownload, BsPrinter } from 'react-icons/bs';
+import { BsPeople, BsCalendar3, BsFileText, BsSearch, BsChevronLeft, BsChevronRight, BsDownload, BsPrinter, BsTelephone } from 'react-icons/bs';
 import api from "../../services/api";
 import "./Reports.css";
 
@@ -246,106 +246,94 @@ const Reports = () => {
       </Row>
 
       {/* Search and Select Employee Section */}
-      <Card className="dashboard-section mb-3">
-        <Card.Body>
-          <Row className="g-3">
-            <Col md={6}>
-              <Form.Group>
-                <Form.Label className="fw-medium">Select Employee</Form.Label>
-                <Form.Select
-                  value={selectedEmployee?.id || ""}
-                  onChange={(e) => {
-                    const emp = reportsData?.employees?.find(emp => emp.id === parseInt(e.target.value));
-                    if (emp) {
-                      handleEmployeeSelect(emp);
-                    }
-                  }}
-                  style={{ cursor: "pointer" }}
-                >
-                  <option value="">-- Select an employee --</option>
-                  {reportsData?.employees?.map(emp => (
-                    <option key={emp.id} value={emp.id}>
-                      {emp.name} - {emp.department || 'No Department'}
-                    </option>
-                  ))}
-                </Form.Select>
-              </Form.Group>
-            </Col>
-            <Col md={6}>
-              <Form.Group>
-                <Form.Label className="fw-medium">Or Search Employee</Form.Label>
-                <div className="position-relative">
-                  <BsSearch style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "#999", zIndex: 1 }} />
-                  <Form.Control
-                    type="text"
-                    placeholder="Search by Name / Email / Department..."
-                    value={searchTerm}
-                    onChange={(e) => {
-                      setSearchTerm(e.target.value);
-                      setShowEmployeeDropdown(true);
-                    }}
-                    onFocus={() => setShowEmployeeDropdown(true)}
-                    onBlur={() => setTimeout(() => setShowEmployeeDropdown(false), 200)}
-                    style={{ paddingLeft: "40px" }}
-                  />
-                  
-                  {showEmployeeDropdown && searchTerm && filteredEmployees.length > 0 && (
-                    <div style={{
-                      position: "absolute",
-                      top: "100%",
-                      left: 0,
-                      right: 0,
-                      marginTop: "4px",
-                      background: "white",
-                      border: "1px solid #ddd",
-                      borderRadius: "8px",
-                      boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
-                      zIndex: 1000,
-                      maxHeight: "300px",
-                      overflowY: "auto"
-                    }}>
-                      {filteredEmployees.map((emp) => (
-                        <div
-                          key={emp.id}
-                          onClick={() => handleEmployeeSelect(emp)}
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            padding: "12px",
-                            cursor: "pointer",
-                            borderBottom: "1px solid #f0f0f0"
-                          }}
-                          onMouseEnter={(e) => e.currentTarget.style.background = "#f8f9fa"}
-                          onMouseLeave={(e) => e.currentTarget.style.background = "white"}
-                        >
-                          <div style={{
-                            width: "40px",
-                            height: "40px",
-                            borderRadius: "50%",
-                            background: "#135D66",
-                            color: "white",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            fontWeight: "500",
-                            marginRight: "12px"
-                          }}>
-                            {emp.name?.charAt(0).toUpperCase()}
-                          </div>
-                          <div style={{ flex: 1 }}>
-                            <div style={{ fontWeight: "500", color: "#2C3E50" }}>{emp.name}</div>
-                            <div style={{ fontSize: "13px", color: "#6c757d" }}>
-                              {emp.email} • {emp.department || 'No Department'}
-                            </div>
-                          </div>
+      <Card className="dashboard-section mb-3" style={{ maxWidth: "1400px", margin: "0 auto" }}>
+  <Card.Body style={{ background: "#fff", borderRadius: "14px", boxShadow: "0 2px 8px rgba(0,0,0,0.04)", border: "1px solid #e5e7eb" }}>
+          <Form.Group>
+            <Form.Label className="fw-medium" style={{ fontSize: "1.05rem", color: "#135D66", fontWeight: 600, marginBottom: "0.5rem" }}>Search Employee</Form.Label>
+            <div className="position-relative" style={{ marginBottom: "0.5rem" }}>
+              <BsSearch style={{ position: "absolute", left: "16px", top: "50%", transform: "translateY(-50%)", color: "#135D66", zIndex: 2, fontSize: "1.1rem" }} />
+              <Form.Control
+                type="text"
+                placeholder="Search by Name, Email, or Department"
+                value={searchTerm}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                  setShowEmployeeDropdown(true);
+                }}
+                onFocus={() => setShowEmployeeDropdown(true)}
+                onBlur={() => setTimeout(() => setShowEmployeeDropdown(false), 200)}
+                style={{
+                  paddingLeft: "40px",
+                  borderRadius: "8px",
+                  border: "1.5px solid #135D66",
+                  fontSize: "1.05rem",
+                  background: "#f8f9fa",
+                  color: "#003C43",
+                  fontWeight: 500,
+                  boxShadow: "0 1px 4px rgba(19,93,102,0.07)",
+                  transition: "border-color 0.2s, box-shadow 0.2s"
+                }}
+                autoComplete="off"
+                onMouseOver={e => e.currentTarget.style.borderColor = '#28a745'}
+                onMouseOut={e => e.currentTarget.style.borderColor = '#135D66'}
+              />
+              {showEmployeeDropdown && searchTerm && filteredEmployees.length > 0 && (
+                <div style={{
+                  position: "absolute",
+                  top: "100%",
+                  left: 0,
+                  right: 0,
+                  marginTop: "6px",
+                  background: "#fff",
+                  border: "1px solid #e5e7eb",
+                  borderRadius: "8px",
+                  boxShadow: "0 4px 16px rgba(0,0,0,0.07)",
+                  zIndex: 1000,
+                  maxHeight: "320px",
+                  overflowY: "auto"
+                }}>
+                  {filteredEmployees.map((emp) => (
+                    <div
+                      key={emp.id}
+                      onMouseDown={() => handleEmployeeSelect(emp)}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        padding: "12px 14px",
+                        cursor: "pointer",
+                        borderBottom: "1px solid #f0f0f0",
+                        transition: "background 0.2s"
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.background = "#f8f9fa"}
+                      onMouseLeave={(e) => e.currentTarget.style.background = "#fff"}
+                    >
+                      <div style={{
+                        width: "36px",
+                        height: "36px",
+                        borderRadius: "50%",
+                        background: "#135D66",
+                        color: "white",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontWeight: "600",
+                        marginRight: "12px",
+                        fontSize: "1rem"
+                      }}>
+                        {emp.name?.charAt(0).toUpperCase()}
+                      </div>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontWeight: "500", color: "#003C43", fontSize: "0.98rem" }}>{emp.name}</div>
+                        <div style={{ fontSize: "13px", color: "#6c757d" }}>
+                          {emp.email} • {emp.department || 'No Department'}
                         </div>
-                      ))}
+                      </div>
                     </div>
-                  )}
+                  ))}
                 </div>
-              </Form.Group>
-            </Col>
-          </Row>
+              )}
+            </div>
+          </Form.Group>
         </Card.Body>
       </Card>
 
@@ -359,7 +347,7 @@ const Reports = () => {
       {selectedEmployee && employeeReport && (
         <>
           {/* Today's Status Banner */}
-          <Alert variant="info" className="mb-3" style={{ 
+          <div className="mb-3" style={{ 
             background: "linear-gradient(135deg, #E3FEF7 0%, #F0FDFB 100%)", 
             border: "1px solid #77B0AA",
             borderRadius: "12px",
@@ -386,10 +374,28 @@ const Reports = () => {
               </div>
               <div className="d-flex gap-2">
                 <Button
-                  variant="outline-primary"
+                  variant="primary"
                   size="sm"
                   onClick={handleExportCSV}
-                  style={{ borderColor: "#135D66", color: "#135D66", fontSize: "0.8rem", padding: "0.4rem 0.8rem" }}
+                  style={{
+                    background: "#135D66",
+                    color: "#fff",
+                    border: "none",
+                    borderRadius: "8px",
+                    fontSize: "0.85rem",
+                    fontWeight: 600,
+                    padding: "0.45rem 1.1rem",
+                    boxShadow: "0 1px 6px rgba(19,93,102,0.10)",
+                    transition: "background 0.2s, box-shadow 0.2s"
+                  }}
+                  onMouseOver={e => {
+                    e.currentTarget.style.background = '#003C43';
+                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(19,93,102,0.18)';
+                  }}
+                  onMouseOut={e => {
+                    e.currentTarget.style.background = '#135D66';
+                    e.currentTarget.style.boxShadow = '0 1px 6px rgba(19,93,102,0.10)';
+                  }}
                 >
                   <BsDownload className="me-1" />
                   Export
@@ -405,267 +411,265 @@ const Reports = () => {
                 </Button>
               </div>
             </div>
-          </Alert>
+          </div>
 
-          <Row className="g-3">
-            {/* Left Section - Employee Details & Attendance Table */}
+          <Row className="g-4">
+            {/* Left Section - Employee Details & Stats */}
             <Col lg={6}>
-              {/* Employee Details - Compact */}
-              <Card className="dashboard-section mb-3">
-                <Card.Body className="py-2 px-3">
-                  <div className="dashboard-section-title mb-2" style={{ paddingBottom: "0.5rem", fontSize: "1rem" }}>
-                    <BsPeople className="me-2" />
+              {/* Employee Details */}
+              <Card className="dashboard-section mb-3" style={{ height: "auto" }}>
+                <Card.Body style={{ padding: "0.75rem" }}>
+                  <h3 style={{ fontSize: "1.1rem", fontWeight: "600", color: "#003C43", marginBottom: "1rem", paddingBottom: "0.75rem", borderBottom: "2px solid #77B0AA", display: "flex", alignItems: "center" }}>
+                    <BsPeople className="me-2" size={20} />
                     Employee Details
+                  </h3>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <BsPeople size={16} style={{ color: "#135D66", marginRight: "0.5rem" }} />
+                      <span style={{ color: "#6c757d", fontSize: "0.9rem" }}>Name:</span>
+                      <span style={{ marginLeft: "auto", fontWeight: "500", fontSize: "0.9rem" }}>{employeeReport.employee.name}</span>
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <BsFileText size={16} style={{ color: "#135D66", marginRight: "0.5rem" }} />
+                      <span style={{ color: "#6c757d", fontSize: "0.9rem" }}>Email:</span>
+                      <span style={{ marginLeft: "auto", fontWeight: "500", fontSize: "0.9rem" }}>{employeeReport.employee.email}</span>
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <BsCalendar3 size={16} style={{ color: "#135D66", marginRight: "0.5rem" }} />
+                      <span style={{ color: "#6c757d", fontSize: "0.9rem" }}>Department:</span>
+                      <span style={{ marginLeft: "auto", fontWeight: "500", fontSize: "0.9rem" }}>{employeeReport.employee.department}</span>
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <BsTelephone size={16} style={{ color: "#135D66", marginRight: "0.5rem" }} />
+                      <span style={{ color: "#6c757d", fontSize: "0.9rem" }}>Phone:</span>
+                      <span style={{ marginLeft: "auto", fontWeight: "500", fontSize: "0.9rem" }}>{employeeReport.employee.phone}</span>
+                    </div>
                   </div>
-                  <Row className="g-2">
-                    <Col sm={6}>
-                      <small className="text-muted d-block" style={{ fontSize: "0.75rem" }}>Name:</small>
-                      <div className="fw-medium" style={{ fontSize: "0.88rem" }}>{employeeReport.employee.name}</div>
-                    </Col>
-                    <Col sm={6}>
-                      <small className="text-muted d-block" style={{ fontSize: "0.75rem" }}>Email:</small>
-                      <div className="fw-medium" style={{ fontSize: "0.88rem" }}>{employeeReport.employee.email}</div>
-                    </Col>
-                    <Col sm={6}>
-                      <small className="text-muted d-block" style={{ fontSize: "0.75rem" }}>Department:</small>
-                      <div className="fw-medium" style={{ fontSize: "0.88rem" }}>{employeeReport.employee.department}</div>
-                    </Col>
-                    <Col sm={6}>
-                      <small className="text-muted d-block" style={{ fontSize: "0.75rem" }}>Phone:</small>
-                      <div className="fw-medium" style={{ fontSize: "0.88rem" }}>{employeeReport.employee.phone}</div>
-                    </Col>
-                  </Row>
                 </Card.Body>
               </Card>
 
-            {/* Attendance Records Table - Positioned here */}
-            {employeeReport.attendance?.length > 0 && (
+              {/* Attendance Stats */}
               <Card className="dashboard-section mb-3">
-                <Card.Body className="p-0">
-                  <div style={{ maxHeight: "265px", overflowY: "auto" }}>
-                    <Table className="dashboard-table mb-0">
-                      <thead>
-                        <tr>
-                          <th>Date</th>
-                          <th>Status</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {employeeReport.attendance.slice(0, 8).map((record, index) => (
-                          <tr key={index}>
-                            <td>{new Date(record.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</td>
-                            <td>
-                              <span className={`status-badge status-${record.status.toLowerCase()}`}>
-                                {record.status}
-                              </span>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </Table>
-                  </div>
-                  {employeeReport.attendance.length > 8 && (
-                    <div className="text-center py-2" style={{ background: "#f8f9fa", fontSize: "11px", color: "#6c757d" }}>
-                      Showing 8 of {employeeReport.attendance.length} records
+                <Card.Body style={{ padding: "1.25rem" }}>
+                  <h3 style={{ fontSize: "1.05rem", fontWeight: "600", color: "#003C43", marginBottom: "0.75rem", paddingBottom: "0.5rem", borderBottom: "2px solid #77B0AA" }}>
+                    Attendance Overview
+                  </h3>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.75rem", marginBottom: "1rem" }}>
+                    <div style={{ background: "#f8f9fa", borderRadius: "10px", boxShadow: "0 1px 4px rgba(0,0,0,0.04)", padding: "0.5rem 0.3rem", textAlign: "center" }}>
+                      <div style={{ fontSize: "0.65rem", color: "#2C3E50", fontWeight: "500", marginBottom: "0.05rem" }}>Total Days</div>
+                      <div style={{ fontSize: "1rem", fontWeight: "bold", color: "#2C3E50" }}>{employeeReport.statistics.totalDays}</div>
                     </div>
-                  )}
+                    <div style={{ background: "#f8f9fa", borderRadius: "10px", boxShadow: "0 1px 4px rgba(0,0,0,0.04)", padding: "0.5rem 0.3rem", textAlign: "center" }}>
+                      <div style={{ fontSize: "0.65rem", color: "#2C3E50", fontWeight: "500", marginBottom: "0.05rem" }}>Present</div>
+                      <div style={{ fontSize: "1rem", fontWeight: "bold", color: "#28a745" }}>{employeeReport.statistics.presentDays}</div>
+                    </div>
+                    <div style={{ background: "#f8f9fa", borderRadius: "10px", boxShadow: "0 1px 4px rgba(0,0,0,0.04)", padding: "0.5rem 0.3rem", textAlign: "center" }}>
+                      <div style={{ fontSize: "0.65rem", color: "#135D66", fontWeight: "500", marginBottom: "0.05rem" }}>Rate</div>
+                      <div style={{ fontSize: "1rem", fontWeight: "bold", color: "#135D66" }}>{employeeReport.statistics.attendanceRate}%</div>
+                    </div>
+                  </div>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+                    <div style={{ background: "#f8f9fa", borderRadius: "10px", boxShadow: "0 1px 4px rgba(0,0,0,0.04)", padding: "0.3rem", textAlign: "center" }}>
+                      <div style={{ fontSize: "0.65rem", color: "#28a745", fontWeight: "500", marginBottom: "0.03rem" }}>Present Days</div>
+                      <div style={{ fontSize: "0.9rem", fontWeight: "bold", color: "#28a745" }}>{employeeReport.statistics.presentDays}</div>
+                    </div>
+                    <div style={{ background: "#f8f9fa", borderRadius: "10px", boxShadow: "0 1px 4px rgba(0,0,0,0.04)", padding: "0.3rem", textAlign: "center" }}>
+                      <div style={{ fontSize: "0.65rem", color: "#dc3545", fontWeight: "500", marginBottom: "0.03rem" }}>Absent Days</div>
+                      <div style={{ fontSize: "0.9rem", fontWeight: "bold", color: "#dc3545" }}>{employeeReport.statistics.absentDays}</div>
+                    </div>
+                  </div>
                 </Card.Body>
               </Card>
-            )}
-          </Col>
+            </Col>
 
           {/* Right Section - Calendar */}
           <Col lg={6}>
-            <Card className="dashboard-section mb-3" style={{ height: "fit-content" }}>
-              <Card.Body className="py-3">
-                <div className="dashboard-section-title mb-3">
-                  <BsCalendar3 className="me-2" />
+            <Card className="dashboard-section" style={{ height: "520px" }}>
+              <Card.Body style={{ padding: "1.25rem" }}>
+                <h3 style={{ fontSize: "1.1rem", fontWeight: "600", color: "#003C43", marginBottom: "1rem", paddingBottom: "0.75rem", borderBottom: "2px solid #77B0AA", display: "flex", alignItems: "center" }}>
+                  <BsCalendar3 className="me-2" size={20} />
                   Attendance Calendar
-                </div>
+                </h3>
 
                 {/* Calendar Navigation */}
-                <div className="d-flex justify-content-between align-items-center mb-2">
-                  <Button
-                    variant="link"
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                  <button
                     onClick={handlePreviousMonth}
-                    style={{ color: "#135D66", textDecoration: "none", padding: "4px" }}
+                    style={{ 
+                      background: "transparent", 
+                      border: "none", 
+                      cursor: "pointer",
+                      padding: "0.25rem",
+                      borderRadius: "4px",
+                      transition: "background 0.2s"
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = "#E3FEF7"}
+                    onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
                   >
-                    <BsChevronLeft size={20} />
-                  </Button>
-                  <h6 className="mb-0 fw-bold" style={{ fontSize: "15px" }}>{monthNames[currentMonth - 1]} {currentYear}</h6>
-                  <Button
-                    variant="link"
+                    <BsChevronLeft size={20} style={{ color: "#135D66" }} />
+                  </button>
+                  <h4 style={{ fontSize: "1.1rem", fontWeight: "600", color: "#003C43", margin: 0 }}>
+                    {monthNames[currentMonth - 1]} {currentYear}
+                  </h4>
+                  <button
                     onClick={handleNextMonth}
-                    style={{ color: "#135D66", textDecoration: "none", padding: "4px" }}
+                    style={{ 
+                      background: "transparent", 
+                      border: "none", 
+                      cursor: "pointer",
+                      padding: "0.25rem",
+                      borderRadius: "4px",
+                      transition: "background 0.2s"
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = "#E3FEF7"}
+                    onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
                   >
-                    <BsChevronRight size={20} />
-                  </Button>
+                    <BsChevronRight size={20} style={{ color: "#135D66" }} />
+                  </button>
                 </div>
 
-                {/* Calendar */}
-                <div className="calendar-grid" style={{ height: "360px" }}>
-                  <div className="calendar-header">
-                    {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                      <div key={day} className="calendar-day-name" style={{ fontSize: "12px", padding: "4px", height: "30px" }}>{day}</div>
-                    ))}
-                  </div>
-                  <div className="calendar-body" style={{ height: "330px" }}>
-                    {generateCalendar().map((week, weekIndex) => (
-                      <div key={weekIndex} className="calendar-week" style={{ height: "55px" }}>
-                        {week.map((dayObj, dayIndex) => {
-                          const today = new Date();
-                          const isToday = dayObj && 
-                            dayObj.day === today.getDate() && 
-                            currentMonth === (today.getMonth() + 1) && 
-                            currentYear === today.getFullYear();
-                          
-                          // Check if it's weekend (Saturday = 6, Sunday = 0)
-                          const isWeekend = dayObj && dayIndex === 0 || dayIndex === 6;
-                          
-                          // Determine the status for this day (only one status possible)
-                          let dayStatus = null;
-                          if (dayObj && dayObj.data.total > 0) {
-                            if (dayObj.data.present > 0) {
-                              dayStatus = 'present';
-                            } else if (dayObj.data.absent > 0) {
-                              dayStatus = 'absent';
-                            } else if (dayObj.data.leave > 0) {
-                              dayStatus = 'leave';
+                {/* Calendar Days Header */}
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "0.25rem", marginBottom: "0.25rem", marginTop: "1rem" }}>
+                  {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+                    <div key={day} style={{ textAlign: "center", fontSize: "0.75rem", fontWeight: "500", color: "#5A6C7D", padding: "0.25rem" }}>
+                      {day}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Calendar Grid - Compact Modern Design */}
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "0.25rem", marginBottom: "0.5rem" }}>
+                  {generateCalendar().map((week, weekIndex) => (
+                    week.map((dayObj, dayIndex) => {
+                      const today = new Date();
+                      const isToday = dayObj && 
+                        dayObj.day === today.getDate() && 
+                        currentMonth === (today.getMonth() + 1) && 
+                        currentYear === today.getFullYear();
+                      
+                      // Check if it's weekend (Saturday = 6, Sunday = 0)
+                      const isWeekend = dayObj && (dayIndex === 0 || dayIndex === 6);
+                      
+                      // Determine the status for this day
+                      let dayStatus = null;
+                      if (dayObj && dayObj.data.total > 0) {
+                        if (dayObj.data.present > 0) {
+                          dayStatus = 'present';
+                        } else if (dayObj.data.absent > 0) {
+                          dayStatus = 'absent';
+                        } else if (dayObj.data.leave > 0) {
+                          dayStatus = 'leave';
+                        }
+                      }
+                      
+                      return (
+                        <div
+                          key={`${weekIndex}-${dayIndex}`}
+                          style={{ 
+                            height: "2.5rem",
+                            width: "100%",
+                            backgroundColor: isToday ? '#135D66' : (dayObj ? '#fff' : 'transparent'),
+                            border: dayObj ? '1px solid #e5e7eb' : 'none',
+                            borderRadius: "0.9rem",
+                            position: 'relative',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontSize: "0.875rem",
+                            fontWeight: isToday ? '600' : '400',
+                            color: isToday ? 'white' : (isWeekend ? '#9ca3af' : '#374151'),
+                            cursor: dayObj ? 'pointer' : 'default',
+                            transition: 'all 0.2s'
+                          }}
+                          onMouseEnter={(e) => {
+                            if (dayObj && !isToday) {
+                              e.currentTarget.style.backgroundColor = '#f3f4f6';
+                              e.currentTarget.style.transform = 'scale(1.05)';
                             }
-                          }
-                          
-                          return (
-                            <div
-                              key={dayIndex}
-                              className={`calendar-day ${!dayObj ? 'empty' : ''}`}
-                              style={{ 
-                                height: "55px",
-                                backgroundColor: isToday ? '#135D66' : '',
-                                position: 'relative',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                padding: '8px'
-                              }}
-                            >
-                              {dayObj && (
-                                <>
-                                  <div className="day-number" style={{ 
-                                    fontSize: "13px", 
-                                    fontWeight: isToday ? '600' : '400',
-                                    color: isToday ? 'white' : 'inherit'
-                                  }}>{dayObj.day}</div>
-                                  
-                                  {/* Show weekend/holiday yellow dot */}
-                                  {isWeekend && !dayStatus && (
-                                    <div style={{
-                                      position: 'absolute',
-                                      bottom: '8px',
-                                      left: '50%',
-                                      transform: 'translateX(-50%)',
-                                      width: '8px',
-                                      height: '8px',
-                                      borderRadius: '50%',
-                                      backgroundColor: '#ffc107'
-                                    }} title="Weekend/Holiday"></div>
-                                  )}
-                                  
-                                  {/* Show green dot for present */}
-                                  {dayStatus === 'present' && (
-                                    <div style={{
-                                      position: 'absolute',
-                                      bottom: '8px',
-                                      left: '50%',
-                                      transform: 'translateX(-50%)',
-                                      width: '8px',
-                                      height: '8px',
-                                      borderRadius: '50%',
-                                      backgroundColor: '#28a745'
-                                    }} title="Present"></div>
-                                  )}
-                                  
-                                  {/* Show red dot for absent */}
-                                  {dayStatus === 'absent' && (
-                                    <div style={{
-                                      position: 'absolute',
-                                      bottom: '8px',
-                                      left: '50%',
-                                      transform: 'translateX(-50%)',
-                                      width: '8px',
-                                      height: '8px',
-                                      borderRadius: '50%',
-                                      backgroundColor: '#dc3545'
-                                    }} title="Absent"></div>
-                                  )}
-                                  
-                                  {/* Show yellow dot for leave */}
-                                  {dayStatus === 'leave' && (
-                                    <div style={{
-                                      position: 'absolute',
-                                      bottom: '8px',
-                                      left: '50%',
-                                      transform: 'translateX(-50%)',
-                                      width: '8px',
-                                      height: '8px',
-                                      borderRadius: '50%',
-                                      backgroundColor: '#ffc107'
-                                    }} title="On Leave"></div>
-                                  )}
-                                </>
-                              )}
-                            </div>
-                          );
-                        })}
-                      </div>
-                    ))}
-                  </div>
+                          }}
+                          onMouseLeave={(e) => {
+                            if (dayObj && !isToday) {
+                              e.currentTarget.style.backgroundColor = '#fff';
+                              e.currentTarget.style.transform = 'scale(1)';
+                            }
+                          }}
+                        >
+                          {dayObj && (
+                            <>
+                              <span>{dayObj.day}</span>
+                              
+                              {/* Status Indicator Dot */}
+                              <div style={{
+                                position: 'absolute',
+                                bottom: '0.25rem',
+                                left: '50%',
+                                transform: 'translateX(-50%)',
+                                width: '0.375rem',
+                                height: '0.375rem',
+                                borderRadius: '50%',
+                                backgroundColor: 
+                                  dayStatus === 'present' ? '#10b981' : 
+                                  dayStatus === 'absent' ? '#ef4444' : 
+                                  (isWeekend && !dayStatus) ? '#fbbf24' : 
+                                  dayStatus === 'leave' ? '#fbbf24' : 
+                                  'transparent'
+                              }}></div>
+                            </>
+                          )}
+                        </div>
+                      );
+                    })
+                  ))}
                 </div>
 
-                {/* Legend */}
-                <div className="calendar-legend mt-2" style={{ height: "30px" }}>
-                  <div className="legend-item">
+                {/* Legend - Modern Compact Design */}
+                <div style={{ 
+                  display: "flex", 
+                  justifyContent: "center", 
+                  gap: "1.5rem", 
+                  paddingTop: "0.75rem",
+                  borderTop: "1px solid #e5e7eb",
+                  marginTop: "3.5rem"
+                }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.375rem" }}>
                     <span style={{ 
-                      display: 'inline-block',
-                      width: '8px', 
-                      height: '8px', 
+                      width: '0.5rem', 
+                      height: '0.5rem', 
                       borderRadius: '50%', 
-                      backgroundColor: '#28a745',
-                      marginRight: '6px'
+                      backgroundColor: '#10b981',
+                      display: 'inline-block'
                     }}></span>
-                    <span style={{ fontSize: "11px" }}>Present</span>
+                    <span style={{ fontSize: "0.75rem", color: "#6b7280" }}>Present</span>
                   </div>
-                  <div className="legend-item">
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.375rem" }}>
                     <span style={{ 
-                      display: 'inline-block',
-                      width: '8px', 
-                      height: '8px', 
+                      width: '0.5rem', 
+                      height: '0.5rem', 
                       borderRadius: '50%', 
-                      backgroundColor: '#dc3545',
-                      marginRight: '6px'
+                      backgroundColor: '#ef4444',
+                      display: 'inline-block'
                     }}></span>
-                    <span style={{ fontSize: "11px" }}>Absent</span>
+                    <span style={{ fontSize: "0.75rem", color: "#6b7280" }}>Absent</span>
                   </div>
-                  <div className="legend-item">
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.375rem" }}>
                     <span style={{ 
-                      display: 'inline-block',
-                      width: '8px', 
-                      height: '8px', 
+                      width: '0.5rem', 
+                      height: '0.5rem', 
                       borderRadius: '50%', 
-                      backgroundColor: '#ffc107',
-                      marginRight: '6px'
+                      backgroundColor: '#fbbf24',
+                      display: 'inline-block'
                     }}></span>
-                    <span style={{ fontSize: "11px" }}>Weekend/Holiday</span>
+                    <span style={{ fontSize: "0.75rem", color: "#6b7280" }}>Weekend</span>
                   </div>
-                  <div className="legend-item">
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.375rem" }}>
                     <span style={{ 
-                      display: 'inline-block',
-                      width: '12px', 
-                      height: '12px', 
-                      borderRadius: '2px', 
+                      width: '0.75rem', 
+                      height: '0.75rem', 
+                      borderRadius: '0.25rem', 
                       backgroundColor: '#135D66',
-                      marginRight: '6px'
+                      display: 'inline-block'
                     }}></span>
-                    <span style={{ fontSize: "11px" }}>Today</span>
+                    <span style={{ fontSize: "0.75rem", color: "#6b7280" }}>Today</span>
                   </div>
                 </div>
               </Card.Body>
