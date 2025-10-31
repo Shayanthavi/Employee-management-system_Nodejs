@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Card, Form, Button, Table, Spinner, Alert, Modal } from "react-bootstrap";
-import { BsPeople, BsBuilding, BsCalendar3, BsFileText, BsCheckCircle, BsXCircle, BsClock, BsSearch, BsChevronLeft, BsChevronRight, BsDownload, BsPrinter } from 'react-icons/bs';
+import { Row, Col, Card, Form, Button, Table, Spinner, Alert } from "react-bootstrap";
+import { BsPeople, BsCalendar3, BsFileText, BsSearch, BsChevronLeft, BsChevronRight, BsDownload, BsPrinter } from 'react-icons/bs';
 import api from "../../services/api";
-import "../employee/Employees.css";
 import "./Reports.css";
 
 const Reports = () => {
@@ -223,14 +222,14 @@ const Reports = () => {
 
   if (loading) {
     return (
-      <Container className="mt-4 employees-container d-flex justify-content-center align-items-center" style={{ minHeight: "60vh" }}>
+      <div className="reports-container d-flex justify-content-center align-items-center" style={{ minHeight: "60vh" }}>
         <Spinner animation="border" style={{ color: "#135D66" }} />
-      </Container>
+      </div>
     );
   }
 
   return (
-    <Container className="mt-4 employees-container reports-container">
+    <div className="reports-container">
       {error && <Alert variant="danger" dismissible onClose={() => setError(null)}>{error}</Alert>}
 
       {/* Header Section */}
@@ -239,7 +238,7 @@ const Reports = () => {
           <div className="d-flex align-items-center gap-3">
             <BsFileText style={{ color: "#135D66", fontSize: "28px" }} />
             <div>
-              <h2 className="employees-title mb-1">Employee Reports & Analytics</h2>
+              <h2 className="reports-title mb-1">Employee Reports & Analytics</h2>
               <p className="text-muted mb-0" style={{ fontSize: "14px" }}>View detailed reports and attendance for employees</p>
             </div>
           </div>
@@ -247,7 +246,7 @@ const Reports = () => {
       </Row>
 
       {/* Search and Select Employee Section */}
-      <Card className="mb-3">
+      <Card className="dashboard-section mb-3">
         <Card.Body>
           <Row className="g-3">
             <Col md={6}>
@@ -358,109 +357,105 @@ const Reports = () => {
       )}
 
       {selectedEmployee && employeeReport && (
-        <Row className="g-3">
-          {/* Left Section - Employee Details, Summary & Attendance Table */}
-          <Col lg={6}>
-            {/* Employee Details */}
-            <Card className="mb-3">
-              <Card.Body className="py-3">
-                <h6 className="mb-2 d-flex align-items-center fw-semibold" style={{ color: "#2C3E50" }}>
-                  <BsPeople className="me-2" />
-                  Employee Details
-                </h6>
-                <Row className="g-2">
-                  <Col sm={6}>
-                    <small className="text-muted">Name:</small>
-                    <div className="fw-medium">{employeeReport.employee.name}</div>
-                  </Col>
-                  <Col sm={6}>
-                    <small className="text-muted">Email:</small>
-                    <div className="fw-medium">{employeeReport.employee.email}</div>
-                  </Col>
-                  <Col sm={6}>
-                    <small className="text-muted">Department:</small>
-                    <div className="fw-medium">{employeeReport.employee.department}</div>
-                  </Col>
-                  <Col sm={6}>
-                    <small className="text-muted">Phone:</small>
-                    <div className="fw-medium">{employeeReport.employee.phone}</div>
-                  </Col>
-                </Row>
-              </Card.Body>
-            </Card>
-
-            {/* Attendance Overview */}
-            <Card className="mb-3">
-              <Card.Body className="py-3">
-                <h6 className="mb-2 fw-semibold" style={{ color: "#2C3E50" }}>Attendance Overview</h6>
-                <Row className="g-2 mb-2">
-                  <Col xs={4}>
-                    <div style={{ background: "#E3FEF7", padding: "12px", borderRadius: "6px", textAlign: "center" }}>
-                      <div style={{ fontSize: "11px", color: "#2C3E50", fontWeight: "500" }}>Total Days</div>
-                      <div style={{ fontSize: "18px", fontWeight: "bold", color: "#2C3E50" }}>{employeeReport.statistics.totalDays}</div>
-                    </div>
-                  </Col>
-                  <Col xs={4}>
-                    <div style={{ background: "#E3FEF7", padding: "12px", borderRadius: "6px", textAlign: "center" }}>
-                      <div style={{ fontSize: "11px", color: "#2C3E50", fontWeight: "500" }}>Present</div>
-                      <div style={{ fontSize: "18px", fontWeight: "bold", color: "#28a745" }}>{employeeReport.statistics.presentDays}</div>
-                    </div>
-                  </Col>
-                  <Col xs={4}>
-                    <div style={{ background: "#135D66", padding: "12px", borderRadius: "6px", textAlign: "center" }}>
-                      <div style={{ fontSize: "11px", color: "white", fontWeight: "500" }}>Rate</div>
-                      <div style={{ fontSize: "18px", fontWeight: "bold", color: "white" }}>{employeeReport.statistics.attendanceRate}%</div>
-                    </div>
-                  </Col>
-                </Row>
-                <div className="d-flex gap-2">
-                  <Button
-                    variant="outline-primary"
-                    size="sm"
-                    onClick={handleExportCSV}
-                    style={{ borderColor: "#135D66", color: "#135D66", fontSize: "13px" }}
-                  >
-                    <BsDownload className="me-1" />
-                    Export
-                  </Button>
-                  <Button
-                    variant="outline-secondary"
-                    size="sm"
-                    onClick={handlePrint}
-                    style={{ fontSize: "13px" }}
-                  >
-                    <BsPrinter className="me-1" />
-                    Print
-                  </Button>
+        <>
+          {/* Today's Status Banner */}
+          <Alert variant="info" className="mb-3" style={{ 
+            background: "linear-gradient(135deg, #E3FEF7 0%, #F0FDFB 100%)", 
+            border: "1px solid #77B0AA",
+            borderRadius: "12px",
+            padding: "1rem 1.5rem"
+          }}>
+            <div className="d-flex align-items-center justify-content-between">
+              <div className="d-flex align-items-center gap-3">
+                <BsPeople style={{ fontSize: "1.5rem", color: "#135D66" }} />
+                <div>
+                  <h6 className="mb-0" style={{ color: "#003C43", fontWeight: "600" }}>
+                    {employeeReport.employee.name} is <span style={{ 
+                      color: employeeReport.todayStatus === 'Present' ? '#28a745' : employeeReport.todayStatus === 'Absent' ? '#dc3545' : '#6c757d',
+                      fontWeight: "700"
+                    }}>
+                      {employeeReport.todayStatus || 'Not Marked'}
+                    </span> today
+                  </h6>
+                  <small style={{ color: "#6c757d" }}>
+                    Attendance Rate: <strong style={{ color: "#135D66" }}>{employeeReport.statistics.attendanceRate}%</strong> 
+                    {' | '} Present: <strong>{employeeReport.statistics.presentDays}</strong> 
+                    {' | '} Absent: <strong>{employeeReport.statistics.absentDays}</strong>
+                  </small>
                 </div>
-              </Card.Body>
-            </Card>
+              </div>
+              <div className="d-flex gap-2">
+                <Button
+                  variant="outline-primary"
+                  size="sm"
+                  onClick={handleExportCSV}
+                  style={{ borderColor: "#135D66", color: "#135D66", fontSize: "0.8rem", padding: "0.4rem 0.8rem" }}
+                >
+                  <BsDownload className="me-1" />
+                  Export
+                </Button>
+                <Button
+                  variant="outline-secondary"
+                  size="sm"
+                  onClick={handlePrint}
+                  style={{ fontSize: "0.8rem", padding: "0.4rem 0.8rem" }}
+                >
+                  <BsPrinter className="me-1" />
+                  Print
+                </Button>
+              </div>
+            </div>
+          </Alert>
 
-            {/* Attendance Records Table */}
+          <Row className="g-3">
+            {/* Left Section - Employee Details & Attendance Table */}
+            <Col lg={6}>
+              {/* Employee Details - Compact */}
+              <Card className="dashboard-section mb-3">
+                <Card.Body className="py-2 px-3">
+                  <div className="dashboard-section-title mb-2" style={{ paddingBottom: "0.5rem", fontSize: "1rem" }}>
+                    <BsPeople className="me-2" />
+                    Employee Details
+                  </div>
+                  <Row className="g-2">
+                    <Col sm={6}>
+                      <small className="text-muted d-block" style={{ fontSize: "0.75rem" }}>Name:</small>
+                      <div className="fw-medium" style={{ fontSize: "0.88rem" }}>{employeeReport.employee.name}</div>
+                    </Col>
+                    <Col sm={6}>
+                      <small className="text-muted d-block" style={{ fontSize: "0.75rem" }}>Email:</small>
+                      <div className="fw-medium" style={{ fontSize: "0.88rem" }}>{employeeReport.employee.email}</div>
+                    </Col>
+                    <Col sm={6}>
+                      <small className="text-muted d-block" style={{ fontSize: "0.75rem" }}>Department:</small>
+                      <div className="fw-medium" style={{ fontSize: "0.88rem" }}>{employeeReport.employee.department}</div>
+                    </Col>
+                    <Col sm={6}>
+                      <small className="text-muted d-block" style={{ fontSize: "0.75rem" }}>Phone:</small>
+                      <div className="fw-medium" style={{ fontSize: "0.88rem" }}>{employeeReport.employee.phone}</div>
+                    </Col>
+                  </Row>
+                </Card.Body>
+              </Card>
+
+            {/* Attendance Records Table - Positioned here */}
             {employeeReport.attendance?.length > 0 && (
-              <Card className="mb-3">
+              <Card className="dashboard-section mb-3">
                 <Card.Body className="p-0">
-                  <div style={{ maxHeight: "300px", overflowY: "auto" }}>
-                    <Table striped bordered hover className="mb-0" style={{ fontSize: "13px" }}>
-                      <thead style={{ background: "#f8f9fa", color: "#6c757d", position: "sticky", top: 0, zIndex: 1 }}>
+                  <div style={{ maxHeight: "265px", overflowY: "auto" }}>
+                    <Table className="dashboard-table mb-0">
+                      <thead>
                         <tr>
-                          <th style={{ padding: "8px" }}>Date</th>
-                          <th style={{ padding: "8px" }}>Status</th>
+                          <th>Date</th>
+                          <th>Status</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {employeeReport.attendance.slice(0, 10).map((record, index) => (
+                        {employeeReport.attendance.slice(0, 8).map((record, index) => (
                           <tr key={index}>
-                            <td style={{ padding: "8px" }}>{new Date(record.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</td>
-                            <td style={{ padding: "8px" }}>
-                              <span style={{
-                                padding: "3px 10px",
-                                borderRadius: "10px",
-                                fontSize: "11px",
-                                fontWeight: "500",
-                                background: record.status === 'Present' ? '#d4edda' : record.status === 'Absent' ? '#f8d7da' : '#fff3cd',
-                                color: record.status === 'Present' ? '#155724' : record.status === 'Absent' ? '#721c24' : '#856404'
-                              }}>
+                            <td>{new Date(record.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</td>
+                            <td>
+                              <span className={`status-badge status-${record.status.toLowerCase()}`}>
                                 {record.status}
                               </span>
                             </td>
@@ -469,46 +464,24 @@ const Reports = () => {
                       </tbody>
                     </Table>
                   </div>
-                  {employeeReport.attendance.length > 10 && (
-                    <div className="text-center py-2" style={{ background: "#f8f9fa", fontSize: "12px", color: "#6c757d" }}>
-                      Showing 10 of {employeeReport.attendance.length} records
+                  {employeeReport.attendance.length > 8 && (
+                    <div className="text-center py-2" style={{ background: "#f8f9fa", fontSize: "11px", color: "#6c757d" }}>
+                      Showing 8 of {employeeReport.attendance.length} records
                     </div>
                   )}
                 </Card.Body>
               </Card>
             )}
-
-            {/* Summary Statistics */}
-            <Card className="mb-3">
-              <Card.Body className="py-3">
-                <h6 className="mb-3 fw-semibold text-center" style={{ color: "#2C3E50" }}>Attendance Summary</h6>
-                <Row className="text-center g-2">
-                  <Col xs={6}>
-                    <div style={{ padding: "12px", borderRadius: "8px", background: "#E3FEF7" }}>
-                      <h5 style={{ color: "#28a745", fontWeight: "bold", marginBottom: "4px" }}>{employeeReport.statistics.presentDays}</h5>
-                      <small className="text-muted">Present Days</small>
-                    </div>
-                  </Col>
-                  <Col xs={6}>
-                    <div style={{ padding: "12px", borderRadius: "8px", background: "#f8d7da" }}>
-                      <h5 style={{ color: "#dc3545", fontWeight: "bold", marginBottom: "4px" }}>{employeeReport.statistics.absentDays}</h5>
-                      <small className="text-muted">Absent Days</small>
-                    </div>
-                  </Col>
-                 
-                </Row>
-              </Card.Body>
-            </Card>
           </Col>
 
           {/* Right Section - Calendar */}
           <Col lg={6}>
-            <Card className="mb-3" style={{ height: "fit-content" }}>
+            <Card className="dashboard-section mb-3" style={{ height: "fit-content" }}>
               <Card.Body className="py-3">
-                <h6 className="mb-2 d-flex align-items-center fw-semibold" style={{ color: "#2C3E50" }}>
+                <div className="dashboard-section-title mb-3">
                   <BsCalendar3 className="me-2" />
                   Attendance Calendar
-                </h6>
+                </div>
 
                 {/* Calendar Navigation */}
                 <div className="d-flex justify-content-between align-items-center mb-2">
@@ -546,6 +519,9 @@ const Reports = () => {
                             currentMonth === (today.getMonth() + 1) && 
                             currentYear === today.getFullYear();
                           
+                          // Check if it's weekend (Saturday = 6, Sunday = 0)
+                          const isWeekend = dayObj && dayIndex === 0 || dayIndex === 6;
+                          
                           // Determine the status for this day (only one status possible)
                           let dayStatus = null;
                           if (dayObj && dayObj.data.total > 0) {
@@ -565,7 +541,6 @@ const Reports = () => {
                               style={{ 
                                 height: "55px",
                                 backgroundColor: isToday ? '#135D66' : '',
-                                color: isToday ? 'white' : '',
                                 position: 'relative',
                                 display: 'flex',
                                 alignItems: 'center',
@@ -575,44 +550,65 @@ const Reports = () => {
                             >
                               {dayObj && (
                                 <>
-                                  <div className="day-number" style={{ fontSize: "13px", fontWeight: isToday ? '600' : '400' }}>{dayObj.day}</div>
+                                  <div className="day-number" style={{ 
+                                    fontSize: "13px", 
+                                    fontWeight: isToday ? '600' : '400',
+                                    color: isToday ? 'white' : 'inherit'
+                                  }}>{dayObj.day}</div>
+                                  
+                                  {/* Show weekend/holiday yellow dot */}
+                                  {isWeekend && !dayStatus && (
+                                    <div style={{
+                                      position: 'absolute',
+                                      bottom: '8px',
+                                      left: '50%',
+                                      transform: 'translateX(-50%)',
+                                      width: '8px',
+                                      height: '8px',
+                                      borderRadius: '50%',
+                                      backgroundColor: '#ffc107'
+                                    }} title="Weekend/Holiday"></div>
+                                  )}
+                                  
+                                  {/* Show green dot for present */}
                                   {dayStatus === 'present' && (
                                     <div style={{
                                       position: 'absolute',
-                                      top: '50%',
+                                      bottom: '8px',
                                       left: '50%',
-                                      transform: 'translate(-50%, -50%)',
+                                      transform: 'translateX(-50%)',
                                       width: '8px',
                                       height: '8px',
                                       borderRadius: '50%',
-                                      backgroundColor: '#135D66',
-                                      marginTop: '10px'
+                                      backgroundColor: '#28a745'
                                     }} title="Present"></div>
                                   )}
+                                  
+                                  {/* Show red dot for absent */}
                                   {dayStatus === 'absent' && (
                                     <div style={{
                                       position: 'absolute',
-                                      top: '50%',
+                                      bottom: '8px',
                                       left: '50%',
-                                      transform: 'translate(-50%, -50%)',
+                                      transform: 'translateX(-50%)',
                                       width: '8px',
                                       height: '8px',
                                       borderRadius: '50%',
-                                      backgroundColor: '#dc3545',
-                                      marginTop: '10px'
+                                      backgroundColor: '#dc3545'
                                     }} title="Absent"></div>
                                   )}
+                                  
+                                  {/* Show yellow dot for leave */}
                                   {dayStatus === 'leave' && (
                                     <div style={{
                                       position: 'absolute',
-                                      top: '50%',
+                                      bottom: '8px',
                                       left: '50%',
-                                      transform: 'translate(-50%, -50%)',
+                                      transform: 'translateX(-50%)',
                                       width: '8px',
                                       height: '8px',
                                       borderRadius: '50%',
-                                      backgroundColor: '#ffc107',
-                                      marginTop: '10px'
+                                      backgroundColor: '#ffc107'
                                     }} title="On Leave"></div>
                                   )}
                                 </>
@@ -633,7 +629,7 @@ const Reports = () => {
                       width: '8px', 
                       height: '8px', 
                       borderRadius: '50%', 
-                      backgroundColor: '#135D66',
+                      backgroundColor: '#28a745',
                       marginRight: '6px'
                     }}></span>
                     <span style={{ fontSize: "11px" }}>Present</span>
@@ -658,7 +654,7 @@ const Reports = () => {
                       backgroundColor: '#ffc107',
                       marginRight: '6px'
                     }}></span>
-                    <span style={{ fontSize: "11px" }}>Leave</span>
+                    <span style={{ fontSize: "11px" }}>Weekend/Holiday</span>
                   </div>
                   <div className="legend-item">
                     <span style={{ 
@@ -676,10 +672,11 @@ const Reports = () => {
             </Card>
           </Col>
         </Row>
+        </>
       )}
 
 
-    </Container>
+    </div>
   );
 };
 

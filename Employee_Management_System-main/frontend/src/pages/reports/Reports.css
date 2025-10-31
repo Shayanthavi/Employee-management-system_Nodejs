@@ -1,78 +1,145 @@
-/* Reports Container */
+/* ================= CSS Variables (from App.css) ================= */
+:root {
+  --primary: #003C43;
+  --secondary: #135D66;
+  --accent: #77B0AA;
+  --background: #F0FDFB;
+  --glass-bg: rgba(240,253,251,0.18);
+  --glass-border: rgba(119,176,170,0.35);
+  --card-bg: #fff;
+  --card-shadow: 0 8px 32px 0 rgba(0,60,67,0.10);
+  --table-header: #135D66;
+  --table-row: #F0FDFB;
+  --table-border: #77B0AA;
+  --text: #003C43;
+  --link: #135D66;
+}
+
+/* ================= Reports Container ================= */
 .reports-container {
-  padding: 0.25rem 2rem 1.5rem 2rem;
-  background: #f8f9fa;
-  min-height: 100vh;
+  padding: 0.25rem 0;
+  animation: fadeInUp 0.5s ease;
 }
 
-/* Report Cards */
-.report-card {
-  border: none;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s, box-shadow 0.2s;
-  margin-bottom: 1.5rem;
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.report-card:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-}
-
-/* Statistics Cards - Neutral Colors */
-.report-stat-card {
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-  cursor: pointer;
-  background: white;
-}
-
-.report-stat-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-  border-color: #135D66;
-}
-
-.report-stat-card .card-body {
-  display: flex;
-  align-items: center;
-  padding: 1.5rem;
-}
-
-.stat-icon {
-  width: 60px;
-  height: 60px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #f5f5f5 0%, #e9ecef 100%);
-  color: #495057;
-  font-size: 1.8rem;
-  margin-right: 1rem;
-  flex-shrink: 0;
-}
-
-.stat-details {
-  flex: 1;
-}
-
-.stat-value {
-  font-size: 2rem;
+/* Reports Page Title */
+.reports-title {
+  font-size: 1.75rem;
   font-weight: 700;
-  color: #212529;
-  line-height: 1;
-  margin-bottom: 0.25rem;
+  color: var(--primary, #003C43);
+  margin: 0;
 }
 
-.stat-label {
-  font-size: 0.9rem;
-  color: #6c757d;
-  font-weight: 500;
+/* ================= Dashboard Section (Shared Styling) ================= */
+.dashboard-section {
+  background: var(--card-bg, #ffffff);
+  border-radius: 18px;
+  box-shadow: var(--card-shadow, 0 4px 20px rgba(0, 60, 67, 0.08));
+  padding: 1.5rem;
+  border: 1.5px solid var(--glass-border, rgba(119, 176, 170, 0.2));
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
-/* Calendar Styles */
+.dashboard-section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 60, 67, 0.12);
+}
+
+.dashboard-section-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--primary, #003C43);
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--accent, #77B0AA);
+  display: flex;
+  align-items: center;
+}
+
+/* ================= Dashboard Table ================= */
+.dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.dashboard-table thead {
+  background: var(--table-header, #135D66) !important;
+}
+
+.dashboard-table thead th {
+  background: #fff !important;
+  color: #135D66 !important;
+  font-weight: 600;
+  padding: 0.85rem 1rem;
+  text-align: left;
+  font-size: 0.95rem;
+  border: none !important;
+  white-space: nowrap;
+}
+
+.dashboard-table tbody tr {
+  border-bottom: 1px solid var(--table-border, #77B0AA);
+  transition: background-color 0.2s;
+}
+
+.dashboard-table tbody tr:hover {
+  background-color: var(--table-row, #E3FEF7);
+}
+
+.dashboard-table tbody td {
+  padding: 0.85rem 1rem;
+  color: var(--text, #003C43);
+  font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+.dashboard-table tbody tr:nth-child(even) {
+  background-color: rgba(227, 254, 247, 0.3);
+}
+
+/* Status Badges */
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.status-present {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.status-absent {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.status-leave {
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+/* ================= Calendar Styles ================= */
 .calendar-controls {
   display: flex;
   align-items: center;
@@ -93,12 +160,12 @@
 .calendar-day-name {
   text-align: center;
   font-weight: 700;
-  color: #495057;
+  color: var(--secondary, #135D66);
   padding: 12px 0;
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: rgba(227, 254, 247, 0.4);
   border-radius: 8px;
   margin-bottom: 10px;
 }
@@ -117,10 +184,10 @@
 
 .calendar-day {
   aspect-ratio: 1;
-  border: 1px solid #e9ecef;
+  border: 1px solid var(--glass-border, rgba(119, 176, 170, 0.2));
   border-radius: 12px;
   padding: 10px;
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  background: var(--card-bg, #ffffff);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -136,8 +203,8 @@
 }
 
 .calendar-day.has-data {
-  border-color: #135D66;
-  background: linear-gradient(135deg, #ffffff 0%, #f0fffe 100%);
+  border-color: var(--secondary, #135D66);
+  background: rgba(227, 254, 247, 0.3);
   box-shadow: 0 2px 6px rgba(19, 93, 102, 0.1);
 }
 
@@ -145,12 +212,12 @@
   transform: translateY(-2px) scale(1.03);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
   z-index: 10;
-  border-color: #135D66;
+  border-color: var(--secondary, #135D66);
 }
 
 .day-number {
   font-weight: 700;
-  color: #212529;
+  color: var(--primary, #003C43);
   font-size: 1rem;
   margin-bottom: 8px;
 }
@@ -166,9 +233,9 @@
   padding: 3px 6px;
   border-radius: 6px;
   font-weight: 600;
-  color: #495057;
-  background: #f8f9fa;
-  border: 1px solid #dee2e6;
+  color: var(--text, #495057);
+  background: rgba(227, 254, 247, 0.3);
+  border: 1px solid var(--glass-border, rgba(119, 176, 170, 0.2));
   transition: all 0.2s;
 }
 
@@ -195,31 +262,31 @@
   color: #856404;
 }
 
-/* Calendar Legend - Modern Neutral */
+/* ================= Calendar Legend ================= */
 .calendar-legend {
   display: flex;
-  gap: 25px;
+  gap: 15px;
   justify-content: center;
-  padding-top: 20px;
-  margin-top: 15px;
-  border-top: 2px solid #e9ecef;
+  padding-top: 15px;
+  margin-top: 10px;
+  border-top: 2px solid var(--accent, #77B0AA);
 }
 
 .legend-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 0.85rem;
+  gap: 8px;
+  font-size: 0.8rem;
   font-weight: 500;
-  color: #495057;
-  padding: 8px 12px;
+  color: var(--text, #495057);
+  padding: 6px 10px;
   border-radius: 8px;
-  background: #f8f9fa;
+  background: rgba(227, 254, 247, 0.3);
   transition: all 0.2s;
 }
 
 .legend-item:hover {
-  background: #e9ecef;
+  background: rgba(227, 254, 247, 0.6);
   transform: scale(1.05);
 }
 
@@ -250,226 +317,34 @@
   border-color: #ffeaa7;
 }
 
-/* Leave Statistics - Neutral Colors */
-.leave-stats {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.leave-stat-item {
-  display: flex;
-  align-items: center;
-  padding: 15px;
-  background: white;
-  border: 1px solid #e9ecef;
-  border-radius: 12px;
-  transition: all 0.3s;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.leave-stat-item:hover {
-  background: #f8f9fa;
-  transform: translateX(5px);
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-  border-color: #135D66;
-}
-
-.leave-stat-icon {
-  width: 50px;
-  height: 50px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #f5f5f5 0%, #e9ecef 100%);
-  color: #495057;
-  font-size: 1.5rem;
-  margin-right: 15px;
-  flex-shrink: 0;
-}
-
-.leave-stat-icon.pending {
-  background: linear-gradient(135deg, #f5f5f5 0%, #ebebeb 100%);
-}
-
-.leave-stat-icon.approved {
-  background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
-}
-
-.leave-stat-icon.rejected {
-  background: linear-gradient(135deg, #e0e0e0 0%, #d5d5d5 100%);
-}
-
-.leave-stat-details {
-  flex: 1;
-}
-
-.leave-stat-value {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #003C43;
-  line-height: 1;
-}
-
-.leave-stat-label {
-  font-size: 0.9rem;
-  color: #6b6b6b;
-  margin-top: 5px;
-}
-
-/* Department Statistics */
-.department-stats {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.department-stat-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.department-name {
-  font-weight: 600;
-  color: #003C43;
-  min-width: 100px;
-  font-size: 0.9rem;
-}
-
-.department-bar-container {
-  flex: 1;
-  height: 30px;
-  background: #e0e0e0;
-  border-radius: 15px;
-  overflow: hidden;
-  position: relative;
-}
-
-.department-bar {
-  height: 100%;
-  border-radius: 15px;
-  transition: width 0.5s ease;
-  background: linear-gradient(90deg, #135D66, #77B0AA);
-}
-
-.department-count {
-  font-weight: 700;
-  color: #135D66;
-  min-width: 30px;
-  text-align: center;
-}
-
-/* Modal Stat Cards */
-.modal-stat-card {
-  padding: 15px;
-  border-radius: 10px;
-  text-align: center;
-  transition: transform 0.2s;
-}
-
-.modal-stat-card:hover {
-  transform: translateY(-3px);
-}
-
-.present-card {
-  background: linear-gradient(135deg, #28a745, #20c997);
-  color: white;
-}
-
-.absent-card {
-  background: linear-gradient(135deg, #dc3545, #f8787e);
-  color: white;
-}
-
-.leave-card {
-  background: linear-gradient(135deg, #ffc107, #ffd43b);
-  color: #003C43;
-}
-
-.total-card {
-  background: linear-gradient(135deg, #135D66, #77B0AA);
-  color: white;
-}
-
-.modal-stat-value {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 5px;
-}
-
-.modal-stat-label {
-  font-size: 0.9rem;
+/* ================= Form Controls ================= */
+.reports-container .form-label {
   font-weight: 500;
-}
-
-/* Table Styles */
-.report-card .employees-table {
-  margin-bottom: 0;
-}
-
-.report-card .employees-table th {
-  background: #135D66 !important;
-  color: white !important;
-  border-color: #135D66 !important;
-  font-weight: 600;
-}
-
-.report-card .employees-table td {
-  vertical-align: middle;
-  padding: 0.75rem;
-}
-
-.report-card .btn-outline-primary:hover {
-  background: #135D66;
-  border-color: #135D66;
-  color: white;
-}
-
-/* Filters */
-.report-card .form-label {
-  font-weight: 500;
-  color: #003C43;
+  color: var(--primary, #003C43);
   margin-bottom: 0.5rem;
 }
 
-.report-card .form-control:focus,
-.report-card .form-select:focus {
-  border-color: #135D66;
+.reports-container .form-control:focus,
+.reports-container .form-select:focus {
+  border-color: var(--secondary, #135D66);
   box-shadow: 0 0 0 0.2rem rgba(19, 93, 102, 0.25);
 }
 
-/* Modal Customization */
-.modal-header {
-  border-bottom: none;
+.reports-container .btn-outline-primary {
+  border-color: var(--secondary, #135D66);
+  color: var(--secondary, #135D66);
 }
 
-.modal-header .btn-close {
-  filter: invert(1);
+.reports-container .btn-outline-primary:hover {
+  background: var(--secondary, #135D66);
+  border-color: var(--secondary, #135D66);
+  color: white;
 }
 
-.modal-body h5 {
-  color: #135D66;
-  font-weight: 600;
-  margin-bottom: 1rem;
-}
-
-.modal-body h6 {
-  color: #003C43;
-  font-weight: 600;
-  border-bottom: 2px solid #135D66;
-  padding-bottom: 0.5rem;
-}
-
-/* Responsive Design */
+/* ================= Responsive Design ================= */
 @media (max-width: 992px) {
   .reports-container {
-    padding: 0.25rem 1rem 1.5rem 1rem;
-  }
-
-  .stat-value {
-    font-size: 1.5rem;
+    padding: 0.25rem 0;
   }
 
   .calendar-day {
@@ -486,6 +361,20 @@
 }
 
 @media (max-width: 768px) {
+  .dashboard-section {
+    padding: 1rem;
+  }
+
+  .dashboard-section-title {
+    font-size: 1rem;
+  }
+
+  .dashboard-table thead th,
+  .dashboard-table tbody td {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+  }
+
   .calendar-controls span {
     font-size: 0.9rem;
   }
@@ -495,35 +384,35 @@
     padding: 5px 0;
   }
 
-  .stat-icon {
-    width: 50px;
-    height: 50px;
-    font-size: 1.5rem;
-  }
-
-  .leave-stat-icon {
-    width: 40px;
-    height: 40px;
-    font-size: 1.2rem;
-  }
-
-  .leave-stat-value {
-    font-size: 1.5rem;
-  }
-
-  .department-name {
-    min-width: 80px;
-    font-size: 0.8rem;
+  .legend-item {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    gap: 6px;
   }
 }
 
-/* Print Styles */
+@media (max-width: 480px) {
+  .dashboard-table {
+    font-size: 0.8rem;
+  }
+
+  .dashboard-table thead th,
+  .dashboard-table tbody td {
+    padding: 0.5rem;
+  }
+
+  .reports-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* ================= Print Styles ================= */
 @media print {
   .reports-container {
     padding: 0;
   }
 
-  .report-card {
+  .dashboard-section {
     box-shadow: none;
     break-inside: avoid;
   }
@@ -531,34 +420,10 @@
   .calendar-controls button {
     display: none;
   }
-}
 
-/* Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+  button {
+    display: none !important;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.report-card {
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-.report-stat-card {
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-.report-stat-card:nth-child(1) {
-  animation-delay: 0.1s;
-}
-
-.report-stat-card:nth-child(2) {
-  animation-delay: 0.2s;
 }
 
 .report-stat-card:nth-child(3) {

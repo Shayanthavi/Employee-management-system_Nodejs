@@ -163,12 +163,18 @@ exports.getEmployeeReport = async (req, res) => {
     const approvedLeaves = leaves.filter(l => l.status === 'Approved').length;
     const rejectedLeaves = leaves.filter(l => l.status === 'Rejected').length;
 
+    // Check today's status
+    const today = new Date().toISOString().split('T')[0];
+    const todayRecord = attendance.find(a => a.date === today);
+    const todayStatus = todayRecord ? todayRecord.status : 'Not Marked';
+
     res.status(200).json({
       success: true,
       data: {
         employee,
         attendance,
         leaves,
+        todayStatus,
         statistics: {
           totalDays,
           presentDays,
