@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { Bell, ChevronDown } from 'lucide-react';
-import { useAuth } from "../contexts/AuthContext";
 import "./Header.css";
+import { useAuth } from "../contexts/AuthContext";
 
 const Header = ({ sidebarCollapsed }) => {
   const { user } = useAuth();
@@ -18,19 +18,32 @@ const Header = ({ sidebarCollapsed }) => {
     "/attendance": "Attendance",
     "/leave": "Leave Management",
     "/profile": "Profile",
-    "/settings": "Settings"
+    "/settings": "Settings",
+    "/reports": "Reports"
   };
   
   // Handle dynamic routes like /employee/:id
-  let activePage = pageNames[location.pathname];
+    let activePage = pageNames[location.pathname] || "Dashboard";
   
-  if (!activePage) {
-    if (location.pathname.startsWith('/employee/')) {
-      activePage = "Edit Employee";
-    } else {
-      activePage = "Dashboard";
+    if (!activePage) {
+      if (location.pathname.startsWith('/employee/edit/')) {
+        activePage = "Edit Employee";
+      } else if (location.pathname.startsWith('/employee/add')) {
+        activePage = "Add Employee";
+      } else if (location.pathname.startsWith('/employee/')) {
+        activePage = "Employee";
+      } else if (location.pathname.startsWith('/attendance')) {
+        activePage = "Attendance";
+      } else if (location.pathname.startsWith('/leave')) {
+        activePage = "Leave Management";
+      } else if (location.pathname.startsWith('/reports')) {
+        activePage = "Reports";
+      } else if (location.pathname.startsWith('/dashboard')) {
+        activePage = "Dashboard";
+      } else {
+        activePage = "Dashboard";
+      }
     }
-  }
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -59,10 +72,10 @@ const Header = ({ sidebarCollapsed }) => {
           onClick={() => setShowDropdown(!showDropdown)}
         >
           <div className="user-avatar">
-            {user?.username ? user.username.charAt(0).toUpperCase() : 'U'}
+            {user && user.username ? user.username.charAt(0).toUpperCase() : 'U'}
           </div>
           <div className="user-info">
-            <span className="user-name">{user?.username || 'User'}</span>
+            <span className="user-name">{user && user.username ? user.username : 'User'}</span>
             <span className="user-role">Administrator</span>
           </div>
           <ChevronDown size={18} className="dropdown-icon" />

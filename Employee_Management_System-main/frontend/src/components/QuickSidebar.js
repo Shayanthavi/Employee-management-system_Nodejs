@@ -5,7 +5,7 @@ import {
   FaUsers, 
   FaCalendarCheck, 
   FaCalendarAlt, 
-  FaUserCircle, 
+  FaRegChartBar, 
   FaUserTie, 
   FaSignOutAlt 
 } from "react-icons/fa";
@@ -17,11 +17,11 @@ const QuickSidebar = ({ onToggle }) => {
   const { logout } = useAuth();
   
   const navLinks = [
-    { to: "/dashboard", icon: <FaTachometerAlt className="quick-sidebar-icon" />, label: "Dashboard", end: true },
-    { to: "/employees", icon: <FaUsers className="quick-sidebar-icon" />, label: "Employees" },
-    { to: "/attendance", icon: <FaCalendarCheck className="quick-sidebar-icon" />, label: "Attendance" },
-    { to: "/leave", icon: <FaCalendarAlt className="quick-sidebar-icon" />, label: "Leave" },
-    { to: "/reports", icon: <FaUserCircle className="quick-sidebar-icon" />, label: "Reports" },
+  { to: "/dashboard", icon: <FaTachometerAlt className="quick-sidebar-icon" />, label: "Dashboard", end: true },
+  { to: "/employees", icon: <FaUsers className="quick-sidebar-icon" />, label: "Employees" },
+  { to: "/attendance", icon: <FaCalendarCheck className="quick-sidebar-icon" />, label: "Attendance" },
+  { to: "/leave", icon: <FaCalendarAlt className="quick-sidebar-icon" />, label: "Leave" },
+  { to: "/reports", icon: <FaRegChartBar className="quick-sidebar-icon" />, label: "Reports" },
   ];
   
   const toggleSidebar = () => {

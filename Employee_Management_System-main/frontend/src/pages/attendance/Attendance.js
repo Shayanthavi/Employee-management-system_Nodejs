@@ -18,7 +18,7 @@ const Attendance = () => {
   const [filterStatus, setFilterStatus] = useState("");
   const [viewRecord, setViewRecord] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+  const itemsPerPage = 5;
 
   const fetchAttendance = async () => {
     try {

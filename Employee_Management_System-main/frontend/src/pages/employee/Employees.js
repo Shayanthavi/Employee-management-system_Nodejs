@@ -18,7 +18,7 @@ const Employees = () => {
   const [filterDept, setFilterDept] = useState("");
   const [viewRecord, setViewRecord] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+  const itemsPerPage = 5;
   const navigate = useNavigate();
 
   const fetchEmployees = async () => {
