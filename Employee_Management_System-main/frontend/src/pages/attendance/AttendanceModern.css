@@ -1,0 +1,78 @@
+/* Clean, minimal modern table style */
+.attendance-table-modern {
+  width: 100%;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(44,62,80,0.07);
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+  margin-top: 1.5rem;
+  font-size: 1rem;
+}
+.attendance-table-modern thead {
+  background: var(--table-header, #135D66) !important;
+}
+.attendance-table-modern thead th {
+  background: #fff !important;
+  color: #135D66 !important;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none !important;
+  padding: 0.35rem 0.5rem;
+  text-align: left;
+  white-space: nowrap;
+}
+.attendance-table-modern tbody td {
+  background: #fff;
+  color: #22223b;
+  border-bottom: 1px solid #f0f1f3;
+  padding: 0.35rem 0.5rem;
+  vertical-align: middle;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+.attendance-table-modern tr:last-child td {
+  border-bottom: none;
+}
+.attendance-table-modern tbody tr {
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(44,62,80,0.06);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  transition: background 0.15s, box-shadow 0.15s;
+  display: table-row;
+}
+.attendance-table-modern tbody tr:hover {
+  background: #f7f8fa;
+  box-shadow: 0 2px 8px rgba(44,62,80,0.10);
+}
+
+/* Add spacing between rows */
+.attendance-table-modern tbody tr:not(:last-child) td {
+  border-bottom: 1.5px solid #c0c0c0;
+}
+.modern-action-btn {
+  background: none;
+  color: #7b809a;
+  border: none !important;
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 1.15rem;
+  margin-right: 0.2rem;
+  box-shadow: none;
+  transition: background 0.18s, color 0.18s;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.modern-action-btn:hover {
+  background: #f0f1f3;
+  color: #22223b;
+}
+.modern-action-btn:active {
+  background: #e5e7eb;
+}

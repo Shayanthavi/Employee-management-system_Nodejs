@@ -1,0 +1,30 @@
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+  background: var(--background, #f5f6fa);
+  color: var(--text, #22223b);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: 'Fira Mono', 'Menlo', 'Monaco', 'Consolas', 'Courier New', monospace;
+}
+
+/* Remove default table border */
+table, th, td {
+  border: none;
+}
+
+/* Remove default button styles */
+button {
+  font-family: inherit;
+  outline: none;
+}

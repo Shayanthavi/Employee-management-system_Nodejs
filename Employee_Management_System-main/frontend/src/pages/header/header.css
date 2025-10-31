@@ -1,0 +1,103 @@
+/* Attractive, modern navbar styles for header */
+
+ .custom-navbar {
+  background: #fff !important;
+  border-radius: 0 0 24px 24px;
+  box-shadow: 0 8px 32px rgba(44,62,80,0.16);
+  padding: 0.7rem 0;
+  position: relative;
+  z-index: 20;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  animation: navbarFadeIn 0.8s cubic-bezier(.4,2,.6,1) both;
+}
+
+@keyframes navbarFadeIn {
+  0% { opacity: 0; transform: translateY(-30px) scale(0.98); }
+  100% { opacity: 1; transform: none; }
+}
+
+ .custom-navbar .navbar-brand {
+  color: #5f4bb6 !important;
+  font-weight: bold;
+  font-size: 1.7rem;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+}
+
+.custom-navbar .navbar-brand img {
+  height: 32px;
+  margin-right: 12px;
+}
+
+ .custom-navbar .nav-link {
+  color: #5f4bb6 !important;
+  text-decoration: none !important;
+  margin-right: 28px;
+  font-size: 1.15rem;
+  transition: color 0.2s, background 0.2s, box-shadow 0.2s;
+  padding: 10px 16px;
+  border-radius: 8px;
+  position: relative;
+}
+
+
+.custom-navbar .nav-link:hover,
+.custom-navbar .nav-link.active {
+  color: #fff !important;
+  background: #5f4bb6 !important;
+  box-shadow: 0 2px 12px rgba(247,184,1,0.10);
+  transform: scale(1.06);
+}
+
+ .custom-navbar .navbar-text {
+  color: #5f4bb6 !important;
+  font-size: 1.05rem;
+  margin-right: 18px;
+  display: flex;
+  align-items: center;
+}
+
+.custom-navbar .user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #5f4bb6 0%, #fff 100%);
+  color: #2b2d42;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.2rem;
+  margin-right: 10px;
+  box-shadow: 0 2px 8px rgba(247,184,1,0.10);
+  border: 2px solid #fff;
+}
+
+.custom-navbar .btn-outline-light {
+  border: 1px solid #fff;
+  color: #c84662;
+  background: #fff;
+  font-weight: 500;
+  padding: 7px 22px;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.custom-navbar .btn-outline-light:hover {
+  background: #c84662;
+  color: #fff;
+  border-color: #fff;
+}
+
+@media (max-width: 768px) {
+  .custom-navbar .nav-link {
+    margin-right: 0;
+    margin-bottom: 10px;
+    font-size: 1rem;
+  }
+  .custom-navbar .navbar-brand {
+    font-size: 1.2rem;
+  }
+}

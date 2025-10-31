@@ -1,0 +1,217 @@
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Button, Form, Alert, Spinner, Card, Container } from 'react-bootstrap';
+import { employeeAPI } from '../../services/api';
+import { useAuth } from '../../contexts/AuthContext';
+
+const UpdateUser = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    department: ""
+  });
+  
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchEmployee = async () => {
+      try {
+        const response = await employeeAPI.getById(id);
+        setFormData(response.data);
+        setError("");
+      } catch (err) {
+        console.error("Error fetching employee:", err);
+        setError("Failed to load employee data. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEmployee();
+  }, [id]);
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!formData.name.trim()) newErrors.name = "Name is required";
+    if (!formData.email) {
+      newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Email is invalid";
+    }
+    if (!formData.phone) newErrors.phone = "Phone is required";
+    if (!formData.department) newErrors.department = "Department is required";
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: null
+      }));
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!validateForm()) return;
+    
+    setSubmitting(true);
+    setError("");
+    
+    try {
+      await employeeAPI.update(id, formData);
+      navigate("/");
+    } catch (err) {
+      console.error("Error updating employee:", err);
+      setError(err.response?.data?.message || "Failed to update employee. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  // Redirect if not admin
+  if (user?.role !== 'ADMIN') {
+    navigate("/");
+    return null;
+  }
+
+  if (loading) {
+    return (
+      <Container className="text-center mt-5">
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+        <p>Loading employee data...</p>
+      </Container>
+    );
+  }
+
+  return (
+    <Container className="py-4">
+      <Button 
+        variant="outline-secondary" 
+        onClick={() => navigate(-1)} 
+        className="mb-3"
+      >
+        &larr; Back
+      </Button>
+      
+      <Card className="mx-auto" style={{ maxWidth: '600px' }}>
+        <Card.Header as="h5" className="text-center">Update Employee</Card.Header>
+        <Card.Body>
+          {error && <Alert variant="danger">{error}</Alert>}
+          
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="formName">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                isInvalid={!!errors.name}
+                placeholder="Enter name"
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.name}
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formEmail">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                isInvalid={!!errors.email}
+                placeholder="Enter email"
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.email}
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formPhone">
+              <Form.Label>Phone</Form.Label>
+              <Form.Control
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={handleInputChange}
+                isInvalid={!!errors.phone}
+                placeholder="Enter phone number"
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.phone}
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group className="mb-4" controlId="formDepartment">
+              <Form.Label>Department</Form.Label>
+              <Form.Select
+                name="department"
+                value={formData.department}
+                onChange={handleInputChange}
+                isInvalid={!!errors.department}
+              >
+                <option value="">Select department</option>
+                <option value="Engineering">Engineering</option>
+                <option value="HR">HR</option>
+                <option value="Finance">Finance</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Operations">Operations</option>
+              </Form.Select>
+              <Form.Control.Feedback type="invalid">
+                {errors.department}
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <div className="d-grid gap-2">
+              <Button 
+                variant="primary" 
+                type="submit" 
+                disabled={submitting}
+              >
+                {submitting ? (
+                  <>
+                    <Spinner
+                      as="span"
+                      animation="border"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      className="me-2"
+                    />
+                    Updating...
+                  </>
+                ) : 'Update Employee'}
+              </Button>
+            </div>
+          </Form>
+        </Card.Body>
+      </Card>
+    </Container>
+  );
+};
+
+export default UpdateUser;

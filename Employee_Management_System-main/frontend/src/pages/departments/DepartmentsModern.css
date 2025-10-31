@@ -1,0 +1,23 @@
+/* Department Table Modern Styles */
+.department-table-modern thead th {
+  background: #fff !important;
+  color: #135D66 !important;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none !important;
+  padding: 0.85rem 1rem;
+  text-align: left;
+  white-space: nowrap;
+}
+.department-table-modern tbody td {
+  background: #fff;
+  color: #22223b;
+  border-bottom: 1px solid #f0f1f3;
+  padding: 0.85rem 1rem;
+  vertical-align: middle;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}

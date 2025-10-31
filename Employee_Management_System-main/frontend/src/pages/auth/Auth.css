@@ -1,0 +1,121 @@
+/* Modern Auth styles */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: var(--background, #f5f6fa);
+  padding: 20px;
+}
+.auth-card {
+  background: var(--card-bg, #fff);
+  padding: 2.5rem 2rem;
+  border-radius: 18px;
+  box-shadow: var(--card-shadow, 0 4px 24px rgba(44,62,80,0.08));
+  width: 100%;
+  max-width: 420px;
+}
+.auth-card h2 {
+  text-align: center;
+  color: #135D66;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+.form-group {
+  margin-bottom: 1.2rem;
+  text-align: left;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--secondary, #4b3869);
+  font-weight: 600;
+}
+.form-control {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text, #22223b);
+  background-color: #fff;
+  border: 1px solid var(--table-border, #e0e0e0);
+  border-radius: 8px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.form-control:focus {
+  border-color: var(--accent, #5f4bb6);
+  outline: 0;
+  box-shadow: 0 0 0 0.15rem rgba(247,184,1,0.15);
+}
+.btn {
+  display: inline-block;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  background: var(--accent, #5f4bb6);
+  color: var(--primary, #2b2d42);
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.2rem;
+
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.btn:hover {
+  background: var(--secondary, #4b3869);
+  color: #fff;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #631786;
+  border-color: #631786;
+}
+
+.btn-primary:hover {
+  background-color: #4f1469;
+  border-color: #4f1469;
+}
+
+.btn-primary:disabled {
+  background-color: #8d5ba1;
+  border-color: #8d5ba1;
+  cursor: not-allowed;
+}
+
+.alert {
+  position: relative;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.auth-footer {
+  margin-top: 1.5rem;
+  text-align: center;
+  color: #135D66;
+}
+
+a {
+  color: #631786;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

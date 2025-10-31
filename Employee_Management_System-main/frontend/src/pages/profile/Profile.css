@@ -1,0 +1,249 @@
+/* Profile Container */
+.profile-container {
+  padding: 0.25rem 2rem 1.5rem 2rem;
+  background: #f8f9fa;
+  min-height: 100vh;
+}
+
+.profile-card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.profile-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Profile Avatar */
+.profile-avatar-large {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #135D66, #77B0AA);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0 auto;
+  box-shadow: 0 4px 12px rgba(19, 93, 102, 0.3);
+}
+
+.profile-username {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #003C43;
+  margin-top: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.profile-position {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.profile-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background: #E3FEF7;
+  color: #135D66;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-top: 0.5rem;
+}
+
+/* Profile Stats */
+.profile-stats {
+  display: flex;
+  justify-content: space-around;
+  padding: 1.5rem 0;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  margin-top: 1rem;
+}
+
+.profile-stat {
+  text-align: center;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: #6b6b6b;
+  margin-bottom: 0.25rem;
+}
+
+.stat-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #135D66;
+}
+
+/* Profile Tabs */
+.profile-tabs .nav-link {
+  color: #6b6b6b;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-weight: 500;
+}
+
+.profile-tabs .nav-link.active {
+  color: #135D66;
+  border-bottom-color: #135D66;
+  background: transparent;
+}
+
+.profile-tabs .nav-link:hover {
+  color: #135D66;
+  border-bottom-color: #77B0AA;
+}
+
+/* Form Controls */
+.profile-card .form-label {
+  font-weight: 500;
+  color: #003C43;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.profile-card .form-control:disabled {
+  background-color: #f8f9fa;
+  border-color: #e0e0e0;
+  color: #495057;
+}
+
+.profile-card .form-control:focus {
+  border-color: #135D66;
+  box-shadow: 0 0 0 0.2rem rgba(19, 93, 102, 0.25);
+}
+
+/* Activity Section */
+.profile-activity {
+  padding: 1rem 0;
+}
+
+.activity-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  transition: background 0.2s;
+}
+
+.activity-item:hover {
+  background: #e9ecef;
+}
+
+.activity-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #135D66;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.activity-content {
+  flex: 1;
+}
+
+.activity-title {
+  font-weight: 600;
+  color: #003C43;
+  margin-bottom: 0.25rem;
+}
+
+.activity-date {
+  font-size: 0.85rem;
+  color: #6b6b6b;
+}
+
+/* Buttons */
+.profile-card .btn-primary {
+  background: #135D66;
+  border-color: #135D66;
+  transition: all 0.3s ease;
+}
+
+.profile-card .btn-primary:hover {
+  background: #0f4a52;
+  border-color: #0f4a52;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(19, 93, 102, 0.3);
+}
+
+.profile-card .btn-outline-primary {
+  border-color: #135D66;
+  color: #135D66;
+}
+
+.profile-card .btn-outline-primary:hover {
+  background: #135D66;
+  border-color: #135D66;
+  color: white;
+}
+
+/* Modal Customization */
+.modal-header {
+  background: #135D66;
+  color: white;
+  border-bottom: none;
+}
+
+.modal-header .btn-close {
+  filter: invert(1);
+}
+
+.modal-title {
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 0.25rem 1rem 1.5rem 1rem;
+  }
+
+  .profile-stats {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .profile-avatar-large {
+    width: 100px;
+    height: 100px;
+    font-size: 2.5rem;
+  }
+
+  .profile-username {
+    font-size: 1.25rem;
+  }
+}
+
+/* Alert Customization */
+.profile-container .alert {
+  border-radius: 8px;
+  border: none;
+}
+
+.profile-container .alert-success {
+  background: #E3FEF7;
+  color: #135D66;
+}
+
+.profile-container .alert-danger {
+  background: #ffe6e6;
+  color: #d63031;
+}
